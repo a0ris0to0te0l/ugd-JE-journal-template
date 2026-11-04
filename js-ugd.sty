@@ -1,0 +1,78 @@
+% Journal of Economics (Goce Delcev University, Stip) paper style. Sizes and spacing follow the journal's
+% author guidelines: https://js.ugd.edu.mk/index.php/JE/about/submissions#authorGuidelines
+% Use: \documentclass[11pt,a4paper]{article} then \usepackage{js-ugd}, or \usepackage[anonymous]{js-ugd} for blind review.
+% See template.tex. Compile with latexmk -pdf (pdflatex and biber). Needs the Arial package uarial.
+\ProvidesPackage{js-ugd}
+
+\newif\ifje@anonymous
+\DeclareOption{anonymous}{\je@anonymoustrue}
+\ProcessOptions\relax
+
+\RequirePackage[a4paper,margin=2.5cm,headheight=14pt,headsep=0.85cm,footskip=1.5cm]{geometry}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{uarial}
+\renewcommand{\familydefault}{\sfdefault}
+\RequirePackage[english]{babel}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage[hang,flushmargin]{footmisc}
+\RequirePackage{titlesec}
+\RequirePackage{enumitem}
+\RequirePackage{fancyhdr}
+\RequirePackage[labelfont=bf,labelsep=space,justification=centering]{caption}
+\RequirePackage[backend=biber,style=apa]{biblatex}
+\RequirePackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
+\RequirePackage{xurl}
+\urlstyle{same}
+\emergencystretch=2em
+\frenchspacing
+
+% Body: Arial 11, no indent, justified, 0/2
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+
+% Headings: 20/10 14 bold; 20/10 12 bold italic
+\titleformat{\section}{\fontsize{14}{17}\selectfont\bfseries}{\thesection.}{0.4em}{}
+\titlespacing*{\section}{0pt}{20pt}{10pt}
+\titleformat{\subsection}{\fontsize{12}{14.5}\selectfont\bfseries\itshape}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{20pt}{10pt}
+
+% Bullet at 0.7 cm, text at 1.2 cm
+\setlist[itemize]{leftmargin=1.2cm,labelsep=0.2cm,labelwidth=0.3cm,itemsep=2pt,topsep=2pt,parsep=0pt}
+\setlength{\abovedisplayskip}{6pt}\setlength{\belowdisplayskip}{6pt}
+
+% Captions: 10 pt, centred; tables 10/10 above, figures 5/10 below
+\DeclareCaptionFont{jeten}{\fontsize{10}{12}\selectfont}
+\captionsetup{font=jeten}
+\captionsetup[table]{position=above,aboveskip=10pt,belowskip=10pt}
+\captionsetup[figure]{position=below,aboveskip=5pt,belowskip=10pt}
+
+% Text inside tables and the note under a table
+\newcommand{\jetablefont}{\fontsize{10}{12}\selectfont}
+\newcommand{\tablenote}[1]{\par\smallskip{\fontsize{8.5}{10}\selectfont #1\par}}
+
+% Page number: bold, centred, 1 cm from the bottom
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\fontsize{11}{13}\selectfont\bfseries\thepage}
+\pagestyle{fancy}
+\fancypagestyle{plain}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}\fancyfoot[C]{\fontsize{11}{13}\selectfont\bfseries\thepage}}
+
+% Reference list: numbered, alphabetical, APA, 10 pt, 0/0, 0.5 cm hanging indent
+\defbibenvironment{bibliography}
+  {\list{\textbf{\arabic{enumiv}}}{\usecounter{enumiv}\setlength{\leftmargin}{0.5cm}\setlength{\labelwidth}{0.4cm}\setlength{\labelsep}{0.1cm}\setlength{\itemindent}{0pt}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}\renewcommand{\makelabel}[1]{##1\hss}}\fontsize{10}{12}\selectfont}
+  {\endlist}
+  {\item}
+
+% First page. Title 0/15 20 bold; authors 0/10 16 italic; affiliations 0/10 11 italic
+\newcommand{\JETitle}[1]{{\raggedright\fontsize{20}{24}\selectfont\bfseries #1\par}\vspace{15pt}}
+\newcommand{\JEAuthors}[1]{\ifje@anonymous\else{\raggedright\fontsize{16}{19}\selectfont\itshape #1\par}\vspace{10pt}\fi}
+% \JEAffiliation{number}{institution and address}{email}
+\newcommand{\JEAffiliation}[3]{\ifje@anonymous\else{\raggedright\itshape\textsuperscript{#1}#2, \href{mailto:#3}{\underline{#3}}\par}\vspace{10pt}\fi}
+% Abstract 20/10 11 bold; Keywords heading 20/2 12 bold; keywords 0/2 11
+\newcommand{\JEAbstract}[1]{\vspace{10pt}{\bfseries #1\par}\vspace{10pt}}
+\newcommand{\JEKeywords}[1]{\vspace{10pt}{\fontsize{12}{14.5}\selectfont\bfseries Keywords\par}\vspace{2pt}#1\par}
